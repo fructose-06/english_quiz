@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English & Math Arena</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="game-container">
+    <!-- START SCREEN (Minimal Clean Cards) -->
+    <div id="start-screen">
+        <h1 style="text-align: center; margin-bottom: 40px;">Select a Quiz</h1>
+        
+        <div class="card-grid">
+            <!-- SIMPLE CLICKABLE CARD -->
+            <div class="deck-card" onclick="startGame()">
+                <div class="card-content">
+                    <div class="card-icon">📚</div>
+                    <h3>หมวดคำศัพท์ และ ไวยากรณ์</h3>
+                    <p>Vocabulary, Grammar, and Reading Comprehension</p>
+                    <div class="card-meta">
+                        <span>15 Questions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN GAME AREA -->
+    <div id="game-screen" class="hidden">
+        <div id="hud" class="hud">
+            <div class="lives">HP: <span id="lives-display">❤️❤️❤️</span></div>
+            <div class="streak">Streak: <span id="streak-display">0</span>🔥</div>
+            <div class="score">Score: <span id="score-display">0</span></div>
+            
+            <div class="hud-buttons">
+                <button class="action-btn restart-btn" onclick="restartGame()">🔄 Reset</button>
+                <button class="action-btn menu-btn" onclick="restartToMenu()">🏠 Menu</button>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+
+        <div id="quiz-area" class="card">
+            <h2 id="question-text">Loading...</h2>
+            <div class="options-container" id="options"></div>
+        </div>
+    </div>
+
+    <!-- RESULTS SCREEN -->
+    <div id="result-area" class="card hidden">
+        <h2 id="result-title">GAME OVER</h2>
+        <div class="final-stats">
+            <p>Final Score: <span id="final-score" class="highlight">0</span></p>
+            <p>Max Streak: <span id="final-streak" class="highlight">0</span>🔥</p>
+        </div>
+        <div class="level-text">Final Rank: <br><strong id="level-display" class="rank-badge">Unranked</strong></div>
+        
+        <!-- ส่วนที่เพิ่มเข้ามาใหม่: กล่องคำแนะนำ -->
+        <div id="feedback-text" class="feedback-box"></div>
+
+        <button id="restart-btn" onclick="restartToMenu()">BACK TO MENU</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
