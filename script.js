@@ -77,9 +77,8 @@ const quizData = [
 ];
 
 let currentQuestionIndex = 0;
-let score = 0; // คะแนนแบบเกม (มีโบนัสคอมโบ)
-let correctAnswers = 0; // จำนวนข้อที่ตอบถูกจริง (เต็ม 15) เพื่อเอาไปคำนวณ Feedback
-let lives = 3;
+let score = 0;
+let correctAnswers = 0; // เราเก็บอันนี้ไว้เพื่อทำ Feedback ตามเกณฑ์คะแนนของคุณ
 let currentStreak = 0;
 let maxStreak = 0;
 let questionTimer;
@@ -94,7 +93,7 @@ const quizArea = document.getElementById('quiz-area');
 const progressBar = document.getElementById('progress-bar');
 const feedbackText = document.getElementById('feedback-text');
 
-const livesDisplay = document.getElementById('lives-display');
+// We removed livesDisplay
 const streakDisplay = document.getElementById('streak-display');
 const scoreDisplay = document.getElementById('score-display');
 
@@ -105,7 +104,6 @@ function startGame() {
     currentQuestionIndex = 0;
     score = 0;
     correctAnswers = 0;
-    lives = 3;
     currentStreak = 0;
     maxStreak = 0;
     
@@ -131,7 +129,7 @@ function loadQuestion() {
 }
 
 function updateHUD() {
-    livesDisplay.innerText = "❤️".repeat(lives) + "🖤".repeat(3 - lives);
+    // We only update streak and score now
     streakDisplay.innerText = currentStreak;
     scoreDisplay.innerText = score;
 }
@@ -145,13 +143,12 @@ function selectAnswer(selectedOption, clickedButton) {
     if (selectedOption === currentQuestion.answer) {
         clickedButton.classList.add('correct');
         currentStreak++;
-        correctAnswers++; // นับจำนวนข้อที่ตอบถูก
+        correctAnswers++;
         if (currentStreak > maxStreak) maxStreak = currentStreak;
         score += 100 + (currentStreak * 50); 
     } else {
         clickedButton.classList.add('wrong');
         currentStreak = 0;
-        lives--;
         
         allButtons.forEach(btn => {
             if (btn.innerText === currentQuestion.answer) {
@@ -167,11 +164,8 @@ function selectAnswer(selectedOption, clickedButton) {
     updateHUD();
     
     questionTimer = setTimeout(() => {
-        if (lives <= 0) {
-            showResults();
-            return;
-        }
-
+        // We removed the life check
+        
         currentQuestionIndex++;
         
         if (currentQuestionIndex < quizData.length) {
@@ -190,8 +184,7 @@ function determineRank(finalScore) {
     return "Bronze 🥉";
 }
 
-
-    // ระบบคำแนะนำตาม Diagnostic Rubric (ปรับเป็นแนวทางการเรียนรู้)
+// Keep the same feedback logic as before
 function getFeedback(correct) {
     // 12 - 15 คะแนน (Excellent)
     if (correct >= 12) {
@@ -205,7 +198,6 @@ function getFeedback(correct) {
     return "🔴 <strong>0 - 7 คะแนน (Needs Support)</strong><br><br><strong>การประเมิน:</strong> ยังมีคลังคำศัพท์ไม่เยอะมาก และอาจจะยังไม่คุ้นเคยกับโครงสร้างประโยคพื้นฐาน<br><br>💡 <strong>แนวทางการเรียนรู้:</strong> อย่าเพิ่งรีบข้ามไปเนื้อหาที่ยากขึ้น ลองกลับมาทบทวนคำศัพท์รอบตัว และฝึกอ่านประโยคสั้นๆ บ่อยๆ ควบคู่ไปกับการเล่นเกมภาษาอังกฤษเพื่อความสนุกและจำง่ายขึ้นครับ";
 }
 
-
 function showResults() {
     gameScreen.classList.add('hidden');
     resultArea.classList.remove('hidden');
@@ -218,17 +210,12 @@ function showResults() {
     const rankElement = document.getElementById('level-display');
     rankElement.innerText = determineRank(score);
     
-    // อัปเดตข้อความคำแนะนำโดยใช้ 'จำนวนข้อที่ถูก' (correctAnswers)
     feedbackText.innerHTML = `<div>ตอบถูกทั้งหมด: <strong>${correctAnswers} / 15</strong> ข้อ</div><br>` + getFeedback(correctAnswers);
     
     const titleElement = document.getElementById('result-title');
-    if (lives <= 0) {
-        titleElement.innerText = "ELIMINATED";
-        titleElement.style.color = "var(--wrong)";
-    } else {
-        titleElement.innerText = "VICTORY";
-        titleElement.style.color = "var(--correct)";
-    }
+    // Simplified title since you can't be eliminated
+    titleElement.innerText = "VICTORY";
+    titleElement.style.color = "var(--correct)";
 }
 
 function restartGame() {
@@ -237,7 +224,6 @@ function restartGame() {
     currentQuestionIndex = 0;
     score = 0;
     correctAnswers = 0;
-    lives = 3;
     currentStreak = 0;
     maxStreak = 0;
     

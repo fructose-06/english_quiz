@@ -9,12 +9,10 @@
 <body>
 
 <div class="game-container">
-    <!-- START SCREEN (Minimal Clean Cards) -->
     <div id="start-screen">
         <h1 style="text-align: center; margin-bottom: 40px;">Select a Quiz</h1>
         
         <div class="card-grid">
-            <!-- SIMPLE CLICKABLE CARD -->
             <div class="deck-card" onclick="startGame()">
                 <div class="card-content">
                     <div class="card-icon">📚</div>
@@ -25,13 +23,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+            
+            </div>
     </div>
 
-    <!-- MAIN GAME AREA -->
     <div id="game-screen" class="hidden">
         <div id="hud" class="hud">
-            <div class="lives">HP: <span id="lives-display">❤️❤️❤️</span></div>
             <div class="streak">Streak: <span id="streak-display">0</span>🔥</div>
             <div class="score">Score: <span id="score-display">0</span></div>
             
@@ -51,7 +48,6 @@
         </div>
     </div>
 
-    <!-- RESULTS SCREEN -->
     <div id="result-area" class="card hidden">
         <h2 id="result-title">GAME OVER</h2>
         <div class="final-stats">
@@ -60,7 +56,6 @@
         </div>
         <div class="level-text">Final Rank: <br><strong id="level-display" class="rank-badge">Unranked</strong></div>
         
-        <!-- ส่วนที่เพิ่มเข้ามาใหม่: กล่องคำแนะนำ -->
         <div id="feedback-text" class="feedback-box"></div>
 
         <button id="restart-btn" onclick="restartToMenu()">BACK TO MENU</button>
